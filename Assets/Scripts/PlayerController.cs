@@ -6,6 +6,7 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
+    private ParticleSystem thrusterParticleSystem;
 
     private Rigidbody rb;
     private PlayerLocomotion inputActions;
@@ -20,7 +21,6 @@ public class PlayerController : MonoBehaviour
     public float shootDelay = 1f;
 
     private float shootTimer = 0f;
-
 
     public void OnEnable()
     {
@@ -42,6 +42,7 @@ public class PlayerController : MonoBehaviour
     void Awake()
     {
         rb = GetComponent<Rigidbody>();
+        thrusterParticleSystem = GetComponentInChildren<ParticleSystem>();
     }
 
     private void Update()
@@ -51,7 +52,7 @@ public class PlayerController : MonoBehaviour
             if (shootTimer >= shootDelay)
             {
                 var bullet = Instantiate(bulletPrefab);
-                bullet.transform.position = transform.position + transform.forward;
+                bullet.transform.position = transform.position + transform.forward * 0.5f;
                 bullet.transform.forward = transform.forward;
                 shootTimer = 0f;
             }
@@ -64,6 +65,15 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
+
+        if (movementInput.y > 0)
+        {
+            thrusterParticleSystem.Play();
+        }
+        else
+        {
+            thrusterParticleSystem.Stop();
+        }
         rb.AddRelativeForce(Vector3.forward * movementInput.y);
         rb.AddTorque(Vector3.forward * -movementInput.x);
     }
