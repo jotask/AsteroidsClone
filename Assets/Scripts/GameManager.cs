@@ -9,6 +9,8 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance { get { return instance; }  }
 
+    [HideInInspector] public WorldManager worldManager;
+
     void Awake()
     {
         if (instance != null && instance != this)
@@ -18,15 +20,9 @@ public class GameManager : MonoBehaviour
             return;
         }
         instance = this;
-    }
 
-    void Start()
-    {
+        worldManager = GetComponent<WorldManager>();
 
     }
 
-    void Update()
-    {
-        
-    }
 }

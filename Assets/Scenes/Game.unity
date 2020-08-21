@@ -368,7 +368,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1050268156}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 115fcd9f81473eb499a96b6894538a2c, type: 3}
   m_Name: 
@@ -387,8 +387,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletPrefab: {fileID: 7446906166998930393, guid: 97911c1dd49b65e46a7eb95ca63175d2,
     type: 3}
-  thrustForce: 5
-  turnThrustForce: 5
+  thrustForce: 15
+  turnThrustForce: 3
   shootDelay: 0.25
 --- !u!1 &1179973805
 GameObject:
@@ -400,6 +400,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1179973806}
   - component: {fileID: 1179973807}
+  - component: {fileID: 1179973808}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -433,6 +434,22 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2c060494b8d7a254c9848a7685f97567, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  worldManager: {fileID: 0}
+--- !u!114 &1179973808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1179973805}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 583b7883b295a304687747b7b068382a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  worldBounds:
+    m_Center: {x: 0, y: 0, z: 0}
+    m_Extent: {x: 10, y: 6, z: 3}
 --- !u!1001 &1259084001
 PrefabInstance:
   m_ObjectHideFlags: 0

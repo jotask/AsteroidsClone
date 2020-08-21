@@ -24,7 +24,7 @@ MonoBehaviour:
   m_MinSize: {x: 679, y: 563}
   m_MaxSize: {x: 12004, y: 12063}
   vertical: 0
-  controlID: 921
+  controlID: 414
 --- !u!114 &2
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -141,7 +141,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 563}
   m_MaxSize: {x: 8003, y: 12063}
   vertical: 1
-  controlID: 922
+  controlID: 415
 --- !u!114 &4
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -166,7 +166,7 @@ MonoBehaviour:
   m_MinSize: {x: 403, y: 442}
   m_MaxSize: {x: 8003, y: 8042}
   vertical: 0
-  controlID: 923
+  controlID: 416
 --- !u!114 &5
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -191,7 +191,7 @@ MonoBehaviour:
   m_MinSize: {x: 201, y: 442}
   m_MaxSize: {x: 4001, y: 8042}
   vertical: 1
-  controlID: 924
+  controlID: 417
 --- !u!114 &6
 MonoBehaviour:
   m_ObjectHideFlags: 52
@@ -211,8 +211,8 @@ MonoBehaviour:
     y: 0
     width: 514
     height: 321
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 7}
   m_Panes:
   - {fileID: 7}
@@ -292,8 +292,8 @@ MonoBehaviour:
     y: 321
     width: 514
     height: 330
-  m_MinSize: {x: 201, y: 221}
-  m_MaxSize: {x: 4001, y: 4021}
+  m_MinSize: {x: 200, y: 200}
+  m_MaxSize: {x: 4000, y: 4000}
   m_ActualView: {fileID: 2}
   m_Panes:
   - {fileID: 2}
@@ -448,14 +448,14 @@ MonoBehaviour:
   m_Gizmos: 1
   m_SceneIsLit: 1
   m_SceneLighting: 1
-  m_2DMode: 0
+  m_2DMode: 1
   m_isRotationLocked: 0
   m_PlayAudio: 0
   m_AudioPlay: 0
   m_Position:
-    m_Target: {x: 0.8788003, y: 0.4068194, z: -11.217321}
+    m_Target: {x: 0.045759514, y: -1.5669972, z: -1.1844242}
     speed: 2
-    m_Value: {x: 0.8788003, y: 0.4068194, z: -11.217321}
+    m_Value: {x: 0.045759514, y: -1.5669972, z: -1.1844242}
   m_RenderMode: 0
   m_CameraMode:
     drawMode: 0
@@ -501,17 +501,17 @@ MonoBehaviour:
     m_GridAxis: 1
     m_gridOpacity: 0.5
   m_Rotation:
-    m_Target: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
+    m_Target: {x: 0, y: 0, z: 0, w: 1}
     speed: 2
-    m_Value: {x: -0.08717229, y: 0.89959055, z: -0.21045254, w: -0.3726226}
+    m_Value: {x: 0, y: 0, z: 0, w: 1}
   m_Size:
-    m_Target: 15.753214
+    m_Target: 10.823843
     speed: 2
-    m_Value: 15.753214
+    m_Value: 10.823843
   m_Ortho:
-    m_Target: 0
+    m_Target: 1
     speed: 2
-    m_Value: 0
+    m_Value: 1
   m_CameraSettings:
     m_Speed: 1.2
     m_SpeedNormalized: 0.6174874
@@ -551,8 +551,8 @@ MonoBehaviour:
     y: 651
     width: 1276
     height: 296
-  m_MinSize: {x: 100, y: 100}
-  m_MaxSize: {x: 4000, y: 4000}
+  m_MinSize: {x: 101, y: 121}
+  m_MaxSize: {x: 4001, y: 4021}
   m_ActualView: {fileID: 15}
   m_Panes:
   - {fileID: 14}
@@ -611,7 +611,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 5c360000
     m_LastClickedID: 13916
-    m_ExpandedIDs: 0000000046360000483600004a36000000ca9a3b
+    m_ExpandedIDs: 0000000062360000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -639,7 +639,7 @@ MonoBehaviour:
     scrollPos: {x: 0, y: 0}
     m_SelectedIDs: 
     m_LastClickedID: 0
-    m_ExpandedIDs: 0000000046360000483600004a36000000ca9a3b
+    m_ExpandedIDs: 0000000062360000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
       m_Name: 
@@ -664,9 +664,9 @@ MonoBehaviour:
       m_Icon: {fileID: 0}
       m_ResourceFile: 
   m_ListAreaState:
-    m_SelectedInstanceIDs: e6350000
-    m_LastClickedInstanceID: 13798
-    m_HadKeyboardFocusLastEvent: 1
+    m_SelectedInstanceIDs: aa370000
+    m_LastClickedInstanceID: 14250
+    m_HadKeyboardFocusLastEvent: 0
     m_ExpandedInstanceIDs: c6230000000000001a330000964b0000207affff3c410000e8510000f83c0000e45d0000fe5e0000fa450000a64c000076490000b44d0000844a0000
     m_RenameOverlay:
       m_UserAcceptedRename: 0
@@ -784,7 +784,7 @@ MonoBehaviour:
     m_ControlHash: -371814159
     m_PrefName: Preview_InspectorPreview
   m_PreviewWindow: {fileID: 0}
-  m_LastInspectedObjectInstanceID: 13798
+  m_LastInspectedObjectInstanceID: 13808
   m_LastVerticalScrollValue: 0
 --- !u!114 &18
 MonoBehaviour:
