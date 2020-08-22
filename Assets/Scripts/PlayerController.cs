@@ -63,7 +63,10 @@ public class PlayerController : MonoBehaviour
                 shootTimer += Time.deltaTime;
             }
         }
+    }
 
+    private void FixedUpdate()
+    {
         // If we are moving forward active the thruster particles
         if (movementInput.y > 0)
         {
@@ -73,10 +76,6 @@ public class PlayerController : MonoBehaviour
         {
             thrusterParticleSystem.Stop();
         }
-    }
-
-    private void FixedUpdate()
-    {
         rb.AddRelativeForce(Vector3.forward * movementInput.y * thrustForce * Time.fixedDeltaTime);
         rb.AddTorque(Vector3.forward * -movementInput.x * turnThrustForce * Time.fixedDeltaTime);
     }

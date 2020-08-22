@@ -59,7 +59,7 @@ public class WorldManager : MonoBehaviour
         else
         {
             // Chose a random number of asteroid to spawn
-            int manyToSpawn = Random.Range(1, 3);
+            int manyToSpawn = Random.Range(2, 3);
             for(int i = 0; i < manyToSpawn; i++)
             {
                 Vector3 oldPosition = asteroid.transform.position;
