@@ -87,9 +87,7 @@ public class WorldManager : MonoBehaviour
 
         Mesh asteroidMesh = asteroidMeshes[Random.Range(0, asteroidMeshes.Count)];
 
-        var asteroid = objectPoolerManager.SpawnFromPool(ObjectPoolerManager.ObjectType.Asteroid, spawnPosition, Quaternion.identity);
-        asteroid.transform.parent = transform;
-
+        GameObject asteroid = objectPoolerManager.SpawnFromPool(ObjectPoolerManager.ObjectType.Asteroid, spawnPosition, Quaternion.identity);
         asteroid.GetComponent<MeshFilter>().mesh = asteroidMesh;
         asteroid.transform.localScale = Vector3.one * scale;
         asteroid.GetComponent<MeshCollider>().sharedMesh = null;

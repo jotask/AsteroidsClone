@@ -564,8 +564,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4bb61ef1b834ec14eba6e4c3ffaf4606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thrustForce: 50
-  turnThrustForce: 3
+  thrustForce: 75
+  turnThrustForce: 25
   shootDelay: 0.25
 --- !u!1 &1179973805
 GameObject:
