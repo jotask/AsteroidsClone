@@ -10,15 +10,14 @@ public class ObjectPoolerManager : MonoBehaviour
         public GameObject prefab;
         public int maximumObjectsAvailable;
     }
-
-    public List<Pool> pools = new List<Pool>();
-
     public enum ObjectType { Bullet, Asteroid }
 
+    public List<Pool> pools = new List<Pool>();
     public Dictionary<ObjectType, Queue<GameObject>> poolDictionary;
 
     void Awake()
     {
+        // Create pool and Instantiate all pool objects and their cap limit
         poolDictionary = new Dictionary<ObjectType, Queue<GameObject>>();
         foreach (Pool pool in pools)
         {
@@ -51,7 +50,7 @@ public class ObjectPoolerManager : MonoBehaviour
 
         objectToSpawn.GetComponent<IPoolObject>().OnSpawn();
 
-        // Add back the object to the back of the pool
+        // Add back the object to the back of the pool, so can be reuse if we reach pool limit.
         poolDictionary[type].Enqueue(objectToSpawn);
 
         return objectToSpawn;

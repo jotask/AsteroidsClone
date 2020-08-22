@@ -1,13 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
 
-    private static GameManager instance = null;
-
-    public static GameManager Instance { get { return instance; }  }
+    // We want the game manager to be a singleton as we only want one instance of this class
+    public static GameManager Instance { get; private set; } = null;
 
     [HideInInspector] public WorldManager worldManager;
     [HideInInspector] public ScoreManager scoreManager;
@@ -15,13 +12,14 @@ public class GameManager : MonoBehaviour
 
     void Awake()
     {
-        if (instance != null && instance != this)
+        if (Instance != null && Instance != this)
         {
             Debug.LogError("Only one Game Manager instance should exist.");
             Destroy(this.gameObject);
             return;
         }
-        instance = this;
+
+        Instance = this;
 
         worldManager = GetComponent<WorldManager>();
         scoreManager = GetComponent<ScoreManager>();

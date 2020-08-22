@@ -1,26 +1,23 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using System.Security;
-using UnityEditorInternal;
-using UnityEngine;
+﻿using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody))]
 public class PlayerController : MonoBehaviour
 {
-    private ParticleSystem thrusterParticleSystem;
 
+    private ParticleSystem thrusterParticleSystem;
     private Rigidbody rb;
     private PlayerLocomotion inputActions;
     private ObjectPoolerManager objectPoolerManager;
+
     private Vector2 movementInput;
     private bool isShooting;
+    private float shootTimer = 0f;
 
     [Header("SpaceShip Stats")]
     public float thrustForce = 5f;
     public float turnThrustForce = 5f;
     public float shootDelay = 1f;
 
-    private float shootTimer = 0f;
 
     public void OnEnable()
     {
@@ -55,6 +52,7 @@ public class PlayerController : MonoBehaviour
         {
             if (shootTimer >= shootDelay)
             {
+                // Nice we can shoot now, get bullet from pool, set it in front of the space ship and make the forward direction the same as the spaceship
                 Vector3 position = transform.position + transform.forward * 0.5f;
                 var bullet = objectPoolerManager.SpawnFromPool(ObjectPoolerManager.ObjectType.Bullet, position, Quaternion.identity);
                 bullet.transform.forward = transform.forward;
@@ -65,11 +63,8 @@ public class PlayerController : MonoBehaviour
                 shootTimer += Time.deltaTime;
             }
         }
-    }
 
-    private void FixedUpdate()
-    {
-
+        // If we are moving forward active the thruster particles
         if (movementInput.y > 0)
         {
             thrusterParticleSystem.Play();
@@ -78,6 +73,10 @@ public class PlayerController : MonoBehaviour
         {
             thrusterParticleSystem.Stop();
         }
+    }
+
+    private void FixedUpdate()
+    {
         rb.AddRelativeForce(Vector3.forward * movementInput.y * thrustForce * Time.fixedDeltaTime);
         rb.AddTorque(Vector3.forward * -movementInput.x * turnThrustForce * Time.fixedDeltaTime);
     }

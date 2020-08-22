@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class WorldManager : MonoBehaviour
@@ -8,17 +7,20 @@ public class WorldManager : MonoBehaviour
     public Bounds worldBounds;
     private ObjectPoolerManager objectPoolerManager;
 
-    public int minNumberOfAsteroidOnScreen = 3;
-
     private List<GameObject> asteroids = new List<GameObject>();
-
     private List<Mesh> asteroidMeshes = new List<Mesh>();
 
+    [Tooltip("Min Number of asteroid can be on the world at the sime time.")]
+    public int minNumberOfAsteroidOnScreen = 3;
+
+    [Tooltip("Initial scale size for the asteroid")]
     public float asteroidInitialScaleSize = 100;
 
     void Start()
     {
         objectPoolerManager = GameManager.Instance.objectPoolerManager;
+        // Get all meshes in the resources folder, and load all of them. With this every asteroid we spawn will have a different mesh.
+        // The mesh choosen is randomly selected from all the meshes loaded and set it to the new asteoid mesh.
         var allAsteroidMeshesLoaded = Resources.LoadAll("Rocks", typeof(Mesh));
         foreach (Object obj in allAsteroidMeshesLoaded)
         {
@@ -34,6 +36,7 @@ public class WorldManager : MonoBehaviour
 
     void Update()
     {
+        // If we have less asteroids on screen that the minimum required, let's spawn a new one!
         if (asteroids.Count < minNumberOfAsteroidOnScreen)
         {
             SpawnAnAsteroid(RandomPointInWorldBounds(), asteroidInitialScaleSize);
@@ -42,21 +45,25 @@ public class WorldManager : MonoBehaviour
 
     internal void SplitAndDestroyAsteroid(Asteroid asteroid)
     {
-        var scale = asteroid.transform.localScale;
-        Vector3 oldPosition = asteroid.transform.position;
 
+        // Remove the asteroid from the current list and deactivate the asteroid (coming back to the pool)
         asteroids.Remove(asteroid.gameObject);
         asteroid.gameObject.SetActive(false);
 
+        var scale = asteroid.transform.localScale;
         if (scale.x < 25f)
         {
+            // Asteroid size is less than required, so we can't split more this asteroid, it's too small already!
             return;
         }
         else
         {
+            // Chose a random number of asteroid to spawn
             int manyToSpawn = Random.Range(1, 3);
             for(int i = 0; i < manyToSpawn; i++)
             {
+                Vector3 oldPosition = asteroid.transform.position;
+                // Reduce by half the previous scale of the asteroid for the childs and spawn asteroid with the halved scale.
                 SpawnAnAsteroid( oldPosition , scale.x * 0.5f);
             }
         }
@@ -85,8 +92,10 @@ public class WorldManager : MonoBehaviour
 
         }
 
+        // Get random mesh for the new asteroid from the loaded meshes found.
         Mesh asteroidMesh = asteroidMeshes[Random.Range(0, asteroidMeshes.Count)];
 
+        // Get a new asteroid object from the pool
         GameObject asteroid = objectPoolerManager.SpawnFromPool(ObjectPoolerManager.ObjectType.Asteroid, spawnPosition, Quaternion.identity);
         asteroid.GetComponent<MeshFilter>().mesh = asteroidMesh;
         asteroid.transform.localScale = Vector3.one * scale;
@@ -108,11 +117,6 @@ public class WorldManager : MonoBehaviour
     {
         Gizmos.color = Color.red;
         Gizmos.DrawWireCube(worldBounds.center, worldBounds.size);
-    }
-
-    public bool IsObjectOutOfWorldBoundsCompletly(Bounds other)
-    {
-        return worldBounds.Intersects(other) == false;
     }
 
 }

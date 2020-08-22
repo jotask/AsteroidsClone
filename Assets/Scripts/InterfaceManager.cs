@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.UI;
 
 public class InterfaceManager : MonoBehaviour
@@ -10,6 +8,7 @@ public class InterfaceManager : MonoBehaviour
 
     private void Start()
     {
+        // Subscribe to the score updated event, we will get notify when the score has been updated.
         GameManager.Instance.scoreManager.ScoreUpdated += ScoreUpdated;
     }
 
