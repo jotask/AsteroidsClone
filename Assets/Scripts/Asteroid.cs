@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
-public class Asteroid : MonoBehaviour
+public class Asteroid : MonoBehaviour, IPoolObject
 {
 
     private Rigidbody rb;
@@ -11,26 +9,37 @@ public class Asteroid : MonoBehaviour
     public float maxTorque;
 
     private WorldManager worldManager;
+    private ScoreManager scoreManager;
+
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody>();
+    }
 
     void Start()
     {
         worldManager = GameManager.Instance.worldManager;
-        rb = GetComponent<Rigidbody>();
-        Vector3 thrust = new Vector3(Random.Range(-maxThrust, maxThrust), Random.Range(-maxThrust, maxThrust), 0f);
-        Vector3 torque = new Vector3(Random.Range(-maxTorque, maxTorque), Random.Range(-maxTorque, maxTorque), Random.Range(-maxTorque, maxTorque));
-        rb.AddForce(thrust);
-        rb.AddTorque(torque);
+        scoreManager = GameManager.Instance.scoreManager;
     }
 
     public void OnCollisionEnter(Collision collision)
     {
         if (collision.transform.tag == "Bullet")
         {
-            Destroy(collision.gameObject);
-            var contactPoint = collision.GetContact(0).point;
+            var score = Mathf.RoundToInt(transform.localScale.x);
+            scoreManager.AddToScore(score);
+            collision.gameObject.SetActive(false);
             worldManager.SplitAndDestroyAsteroid(this);
         }
     }
 
+    public void OnSpawn()
+    {
+        rb.velocity = Vector3.zero;
+        Vector3 thrust = new Vector3(Random.Range(-maxThrust, maxThrust), Random.Range(-maxThrust, maxThrust), 0f);
+        Vector3 torque = new Vector3(Random.Range(-maxTorque, maxTorque), Random.Range(-maxTorque, maxTorque), Random.Range(-maxTorque, maxTorque));
+        rb.AddForce(thrust);
+        rb.AddTorque(torque);
+    }
 
 }

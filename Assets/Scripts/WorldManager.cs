@@ -6,7 +6,7 @@ public class WorldManager : MonoBehaviour
 {
 
     public Bounds worldBounds;
-    public GameObject asteroidPrefab;
+    private ObjectPoolerManager objectPoolerManager;
 
     public int minNumberOfAsteroidOnScreen = 3;
 
@@ -18,6 +18,7 @@ public class WorldManager : MonoBehaviour
 
     void Start()
     {
+        objectPoolerManager = GameManager.Instance.objectPoolerManager;
         var allAsteroidMeshesLoaded = Resources.LoadAll("Rocks", typeof(Mesh));
         foreach (Object obj in allAsteroidMeshesLoaded)
         {
@@ -45,7 +46,7 @@ public class WorldManager : MonoBehaviour
         Vector3 oldPosition = asteroid.transform.position;
 
         asteroids.Remove(asteroid.gameObject);
-        Destroy(asteroid.gameObject);
+        asteroid.gameObject.SetActive(false);
 
         if (scale.x < 25f)
         {
@@ -53,7 +54,7 @@ public class WorldManager : MonoBehaviour
         }
         else
         {
-            int manyToSpawn = Random.Range(1, 4);
+            int manyToSpawn = Random.Range(1, 3);
             for(int i = 0; i < manyToSpawn; i++)
             {
                 SpawnAnAsteroid( oldPosition , scale.x * 0.5f);
@@ -64,8 +65,31 @@ public class WorldManager : MonoBehaviour
 
     void SpawnAnAsteroid(Vector3 asteroidPosition, float scale)
     {
+
+        Vector3 spawnPosition = asteroidPosition;
+
+        // Before we spawn anything let's check if object will collide with something, so we can adjust spawn position
+        Collider[] colliders = Physics.OverlapSphere(spawnPosition, scale);
+        foreach(Collider collider in colliders)
+        {
+            // Let's check if the new spawn point collides with this object
+            if (collider.bounds.Contains(spawnPosition))
+            {
+                // Get the collision direction
+                Vector3 collisionDirection = (collider.transform.position - spawnPosition).normalized;
+                // Get the distance from two objects
+                float distance = Vector3.Distance(collider.transform.position, spawnPosition);
+                // Move away from this collider
+                spawnPosition += collisionDirection * distance;
+            }
+
+        }
+
         Mesh asteroidMesh = asteroidMeshes[Random.Range(0, asteroidMeshes.Count)];
-        var asteroid = Instantiate(asteroidPrefab, asteroidPosition, Quaternion.identity, transform);
+
+        var asteroid = objectPoolerManager.SpawnFromPool(ObjectPoolerManager.ObjectType.Asteroid, spawnPosition, Quaternion.identity);
+        asteroid.transform.parent = transform;
+
         asteroid.GetComponent<MeshFilter>().mesh = asteroidMesh;
         asteroid.transform.localScale = Vector3.one * scale;
         asteroid.GetComponent<MeshCollider>().sharedMesh = null;

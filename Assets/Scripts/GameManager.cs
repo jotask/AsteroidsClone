@@ -10,6 +10,8 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance { get { return instance; }  }
 
     [HideInInspector] public WorldManager worldManager;
+    [HideInInspector] public ScoreManager scoreManager;
+    [HideInInspector] public ObjectPoolerManager objectPoolerManager;
 
     void Awake()
     {
@@ -22,6 +24,8 @@ public class GameManager : MonoBehaviour
         instance = this;
 
         worldManager = GetComponent<WorldManager>();
+        scoreManager = GetComponent<ScoreManager>();
+        objectPoolerManager = GetComponent<ObjectPoolerManager>();
 
     }
 

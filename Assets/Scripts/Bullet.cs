@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UIElements;
+﻿using UnityEngine;
 
-public class Bullet : MonoBehaviour
+public class Bullet : MonoBehaviour, IPoolObject
 {
 
     public Color bulletColor = Color.white;
@@ -16,7 +13,6 @@ public class Bullet : MonoBehaviour
     void Awake()
     {
         meshRenderer = GetComponent<MeshRenderer>();
-        meshRenderer.material.color = bulletColor;
     }
 
     private void Start()
@@ -33,8 +29,13 @@ public class Bullet : MonoBehaviour
     {
         if(worldManager.worldBounds.Contains(transform.position) == false)
         {
-            Destroy(gameObject);
+            gameObject.SetActive(false);
         }
+    }
+
+    public void OnSpawn()
+    {
+        meshRenderer.material.color = bulletColor;
     }
 
 }
